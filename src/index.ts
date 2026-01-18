@@ -1,12 +1,13 @@
 /**
- * @fileoverview @sudobility/auth_service - Firebase authentication service for Hono backends
+ * @fileoverview @sudobility/auth_service - Firebase authentication helpers
  *
- * This library provides:
+ * This library provides framework-agnostic helpers:
  * - Firebase Admin SDK initialization
  * - Token verification with optional caching
  * - Site admin email whitelist checking
- * - Hono middleware for auth and admin routes
  * - User info retrieval from Firebase
+ *
+ * Consuming apps build their own middleware using these helpers.
  */
 
 // Initialization
@@ -18,7 +19,6 @@ export type {
   AuthServiceConfig,
   VerifiedUser,
   UserInfoResponse,
-  AuthContextVariables,
   TokenVerifier,
   CachedToken,
 } from './types';
@@ -35,12 +35,3 @@ export { createCachedVerifier, type CachedVerifier } from './helpers/TokenCache'
 export { isSiteAdmin } from './helpers/AdminHelper';
 
 export { getUserInfo } from './helpers/UserInfoHelper';
-
-// Middleware
-export {
-  createAuthMiddleware,
-  createAdminMiddleware,
-  createUserVerificationMiddleware,
-  type AuthMiddlewareOptions,
-  type UserVerificationMiddlewareOptions,
-} from './middleware/hono';

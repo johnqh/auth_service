@@ -12,7 +12,6 @@
         "eslint": "^9.39.0",
         "eslint-plugin-import": "^2.32.0",
         "firebase-admin": "^13.0.0",
-        "hono": "^4.10.0",
         "prettier": "^3.7.0",
         "typescript": "^5.9.0",
         "vitest": "^4.0.4",
@@ -20,7 +19,6 @@
       "peerDependencies": {
         "@sudobility/types": "^1.9.48",
         "firebase-admin": "^13.0.0",
-        "hono": "^4.0.0",
       },
     },
   },
@@ -518,8 +516,6 @@
     "has-tostringtag": ["has-tostringtag@1.0.2", "", { "dependencies": { "has-symbols": "^1.0.3" } }, "sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw=="],
 
     "hasown": ["hasown@2.0.2", "", { "dependencies": { "function-bind": "^1.1.2" } }, "sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ=="],
-
-    "hono": ["hono@4.11.4", "", {}, "sha512-U7tt8JsyrxSRKspfhtLET79pU8K+tInj5QZXs1jSugO1Vq5dFj3kmZsRldo29mTBfcjDRVRXrEZ6LS63Cog9ZA=="],
 
     "html-entities": ["html-entities@2.6.0", "", {}, "sha512-kig+rMn/QOVRvr7c86gQ8lWXq+Hkv6CbAH1hLu+RG338StTpE8Z0b44SDVaqVu7HGKf27frdmUYEs9hTUX/cLQ=="],
 

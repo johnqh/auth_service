@@ -31,14 +31,6 @@ export interface VerifiedUser {
   decodedToken: DecodedIdToken;
 }
 
-/** Hono context variables set by auth middleware */
-export interface AuthContextVariables {
-  firebaseUser: DecodedIdToken;
-  userId: string;
-  userEmail: string | null;
-  siteAdmin: boolean;
-}
-
 /** Token verifier function signature */
 export type TokenVerifier = (token: string) => Promise<DecodedIdToken>;
 

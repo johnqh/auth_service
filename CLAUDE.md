@@ -1,6 +1,6 @@
 # Auth Service
 
-Shared backend library for Firebase authentication and site admin checking.
+Framework-agnostic Firebase authentication helpers.
 
 **npm**: `@sudobility/auth_service` (public)
 
@@ -11,7 +11,6 @@ Shared backend library for Firebase authentication and site admin checking.
 - **Build**: TypeScript compiler (ESM)
 - **Test**: Vitest
 - **Auth**: Firebase Admin SDK
-- **Framework**: Hono middleware
 
 ## Project Structure
 
@@ -21,15 +20,12 @@ src/
 ├── init.ts               # Initialization function
 ├── types/
 │   └── index.ts          # Type definitions
-├── helpers/
-│   ├── index.ts          # Helper exports
-│   ├── FirebaseHelper.ts # Firebase Admin SDK wrapper
-│   ├── TokenCache.ts     # Token verification caching
-│   ├── AdminHelper.ts    # Site admin checking
-│   └── UserInfoHelper.ts # User info retrieval
-└── middleware/
-    ├── index.ts          # Middleware exports
-    └── hono.ts           # Hono middleware factories
+└── helpers/
+    ├── index.ts          # Helper exports
+    ├── FirebaseHelper.ts # Firebase Admin SDK wrapper
+    ├── TokenCache.ts     # Token verification caching
+    ├── AdminHelper.ts    # Site admin checking
+    └── UserInfoHelper.ts # User info retrieval
 ```
 
 ## Commands
@@ -48,8 +44,8 @@ bun run clean        # Remove dist/
 - Firebase Admin SDK initialization
 - Token verification with optional caching
 - Site admin email whitelist checking
-- Hono middleware for auth and admin routes
 - User info retrieval from Firebase
+- Framework-agnostic (works with Hono, Express, Fastify, etc.)
 
 ## Usage
 
@@ -68,57 +64,82 @@ initializeAuth({
 });
 ```
 
-### Auth Middleware
+### Building Your Own Middleware (Hono example)
 
 ```typescript
 import {
   createCachedVerifier,
-  createAuthMiddleware,
+  isSiteAdmin,
+  isAnonymousUser,
 } from '@sudobility/auth_service';
-import { errorResponse } from '@sudobility/my_types';
+import type { Context, Next } from 'hono';
 
-const { verify: verifyToken } = createCachedVerifier(300000); // 5 min cache
+// Create cached verifier (5 min TTL)
+const { verify: verifyToken } = createCachedVerifier(300000);
 
-const authMiddleware = createAuthMiddleware({
-  verifyToken,
-  errorResponse,
-});
+export async function authMiddleware(c: Context, next: Next) {
+  const authHeader = c.req.header('Authorization');
+  if (!authHeader) {
+    return c.json({ error: 'Authorization header required' }, 401);
+  }
 
-app.use('/api/v1/*', authMiddleware);
-```
+  const [type, token] = authHeader.split(' ');
+  if (type !== 'Bearer' || !token) {
+    return c.json({ error: 'Invalid authorization format' }, 401);
+  }
 
-### Admin Middleware
+  try {
+    const decoded = await verifyToken(token);
 
-```typescript
-import { createAdminMiddleware } from '@sudobility/auth_service';
+    if (isAnonymousUser(decoded)) {
+      return c.json({ error: 'Anonymous users not allowed' }, 403);
+    }
 
-const adminMiddleware = createAdminMiddleware({
-  verifyToken,
-  errorResponse,
-});
+    c.set('firebaseUser', decoded);
+    c.set('userId', decoded.uid);
+    c.set('userEmail', decoded.email ?? null);
+    c.set('siteAdmin', isSiteAdmin(decoded.email));
 
-app.use('/api/v1/admin/*', adminMiddleware);
+    await next();
+  } catch {
+    return c.json({ error: 'Invalid or expired token' }, 401);
+  }
+}
 ```
 
 ### User Info Endpoint
 
 ```typescript
-import {
-  createUserVerificationMiddleware,
-  getUserInfo,
-} from '@sudobility/auth_service';
+import { getUserInfo } from '@sudobility/auth_service';
 
-app.get('/api/v1/users/:userId', userVerificationMiddleware, async (c) => {
+app.get('/api/v1/users/:userId', authMiddleware, async (c) => {
   const userId = c.req.param('userId');
-  const userInfo = await getUserInfo(userId);
+  const tokenUserId = c.get('userId');
 
-  if (!userInfo) {
-    return c.json(errorResponse('User not found'), 403);
+  if (userId !== tokenUserId) {
+    return c.json({ error: 'Forbidden' }, 403);
   }
 
-  return c.json(successResponse(userInfo));
+  const userInfo = await getUserInfo(userId);
+  if (!userInfo) {
+    return c.json({ error: 'User not found' }, 404);
+  }
+
+  return c.json({ data: userInfo });
 });
 ```
+
+## Exported Functions
+
+| Function | Description |
+|----------|-------------|
+| `initializeAuth(config)` | Initialize Firebase Admin SDK and site admin list |
+| `verifyIdToken(token)` | Verify Firebase ID token (no caching) |
+| `createCachedVerifier(ttl)` | Create cached token verifier |
+| `isSiteAdmin(email)` | Check if email is a site admin |
+| `isAnonymousUser(token)` | Check if token is from anonymous user |
+| `getUserInfo(userId)` | Get user info from Firebase |
+| `getFirebaseAuth()` | Get Firebase Auth instance |
 
 ## Environment Variables
 
@@ -133,19 +154,7 @@ app.get('/api/v1/users/:userId', userVerificationMiddleware, async (c) => {
 
 Required in consuming app:
 - `firebase-admin` - Firebase Admin SDK
-- `hono` - Web framework (for middleware)
-- `@sudobility/auth_lib` - Admin email utilities
-
-## Context Variables
-
-Auth middleware sets these Hono context variables:
-
-| Variable | Type | Description |
-|----------|------|-------------|
-| `firebaseUser` | `DecodedIdToken` | Decoded Firebase token |
-| `userId` | `string` | Firebase UID |
-| `userEmail` | `string \| null` | User email |
-| `siteAdmin` | `boolean` | Is site admin |
+- `@sudobility/types` - Shared types
 
 ## Publishing
 
@@ -177,11 +186,3 @@ const decoded = await verify(token);
 // Stop cleanup interval (for tests)
 stop();
 ```
-
-### Error Handling
-- Missing auth header: 401
-- Invalid token format: 401
-- Invalid/expired token: 401
-- Anonymous user: 403
-- Non-admin accessing admin route: 403
-- Token doesn't match requested user: 403
