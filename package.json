@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/auth_service",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Firebase authentication helpers (framework-agnostic)",
   "type": "module",
   "main": "./dist/index.js",

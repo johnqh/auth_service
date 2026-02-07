@@ -8,6 +8,7 @@ Framework-agnostic Firebase authentication helpers.
 
 - **Language**: TypeScript (strict mode)
 - **Runtime**: Bun
+- **Package Manager**: Bun (do not use npm/yarn/pnpm for installing dependencies)
 - **Build**: TypeScript compiler (ESM)
 - **Test**: Vitest
 - **Auth**: Firebase Admin SDK
