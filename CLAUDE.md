@@ -187,3 +187,48 @@ const decoded = await verify(token);
 // Stop cleanup interval (for tests)
 stop();
 ```
+
+## Workspace Context
+
+This project is part of the **ShapeShyft** multi-project workspace at the parent directory. See `../CLAUDE.md` for the full architecture, dependency graph, and build order.
+
+## Downstream Impact
+
+| Downstream Consumer | Relationship |
+|---------------------|-------------|
+| `shapeshyft_api` | Direct dependency - uses auth middleware for all protected routes |
+
+After making changes:
+1. `bun run verify` in this project
+2. `npm publish`
+3. In `shapeshyft_api`: `bun update @sudobility/auth_service` then rebuild
+
+## Local Dev Workflow
+
+```bash
+# In this project:
+bun link
+
+# In shapeshyft_api:
+bun link @sudobility/auth_service
+
+# Rebuild after changes:
+bun run build
+
+# When done, unlink in shapeshyft_api:
+bun unlink @sudobility/auth_service && bun install
+```
+
+## Pre-Commit Checklist
+
+```bash
+bun run verify    # Runs: typecheck -> lint -> build (does NOT include tests)
+bun test          # Run tests separately
+```
+
+## Gotchas
+
+- **`initializeAuth()` must be called before any other function** -- calling `createCachedVerifier()` without initialization throws a confusing Firebase error.
+- **`firebase-admin` is a peer dependency** -- do not add it to `dependencies`.
+- **ESM-only output** -- consumers must use `"type": "module"` or ESM imports.
+- **Token cache cleanup** -- `createCachedVerifier()` starts an interval. Call `stop()` in tests to avoid dangling timers.
