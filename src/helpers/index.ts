@@ -9,7 +9,11 @@ export {
   isAnonymousUser,
 } from './FirebaseHelper';
 
-export { createCachedVerifier, type CachedVerifier } from './TokenCache';
+export {
+  createCachedVerifier,
+  type CachedVerifier,
+  type CachedVerifierOptions,
+} from './TokenCache';
 
 export {
   initializeSiteAdminChecker,

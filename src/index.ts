@@ -30,7 +30,11 @@ export {
   getFirebaseAuth,
 } from './helpers/FirebaseHelper';
 
-export { createCachedVerifier, type CachedVerifier } from './helpers/TokenCache';
+export {
+  createCachedVerifier,
+  type CachedVerifier,
+  type CachedVerifierOptions,
+} from './helpers/TokenCache';
 
 export { isSiteAdmin } from './helpers/AdminHelper';
 

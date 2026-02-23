@@ -2,17 +2,17 @@
 
 ## Priority 1 - High Impact
 
-### 1. Add JSDoc to All Helpers
+### 1. Add JSDoc to All Helpers ✅ DONE
 - `FirebaseHelper`, `TokenCache`, `AdminHelper`, `UserInfoHelper` need comprehensive JSDoc
 - Document initialization requirements and error handling behavior
 - Add `@example` blocks for common integration patterns (Hono, Express)
 
-### 2. Add Token Cache Invalidation Strategy
+### 2. Add Token Cache Invalidation Strategy ✅ DONE
 - `TokenCache` caches verified tokens but needs configurable TTL
 - Add cache size limits to prevent memory growth
 - Consider LRU eviction for high-traffic scenarios
 
-### 3. Add Integration Tests
+### 3. Add Integration Tests ✅ DONE
 - Test full auth flow: token verification -> user info retrieval
 - Test admin email whitelist with edge cases
 - Mock Firebase Admin SDK properly in tests

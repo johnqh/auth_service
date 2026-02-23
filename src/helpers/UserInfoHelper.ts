@@ -1,5 +1,9 @@
 /**
- * @fileoverview User info retrieval from Firebase
+ * @fileoverview User info retrieval from Firebase Auth.
+ *
+ * Provides a convenience wrapper around `firebase-admin/auth` to fetch a
+ * user's profile and enrich it with the site-admin flag from
+ * {@link isSiteAdmin}.
  */
 
 import { getFirebaseAuth } from './FirebaseHelper';
@@ -7,18 +11,24 @@ import { isSiteAdmin } from './AdminHelper';
 import type { UserInfoResponse } from '../types';
 
 /**
- * Get full user info from Firebase Admin SDK.
+ * Retrieve full user information from Firebase Auth by UID.
  *
- * @param userId - Firebase UID
- * @returns User info with siteAdmin flag, or null if user not found
+ * Fetches the `UserRecord` from Firebase Admin, maps it to a
+ * {@link UserInfoResponse} object, and attaches the `siteAdmin` flag.
+ *
+ * @param userId - The Firebase UID of the user to look up.
+ * @returns A {@link UserInfoResponse} containing the user's profile data and
+ *   admin status, or `null` if no user with the given UID exists.
+ * @throws {Error} If Firebase Admin is not initialized or if any Firebase error
+ *   other than `auth/user-not-found` occurs.
  *
  * @example
  * ```typescript
  * const userInfo = await getUserInfo(userId);
  * if (!userInfo) {
- *   return c.json(errorResponse('User not found'), 403);
+ *   return c.json({ error: 'User not found' }, 404);
  * }
- * return c.json(successResponse(userInfo));
+ * return c.json({ data: userInfo });
  * ```
  */
 export async function getUserInfo(
