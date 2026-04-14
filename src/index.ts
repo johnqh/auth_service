@@ -11,7 +11,11 @@
  */
 
 // Initialization
-export { initializeAuth, isAuthInitialized, resetAuthInitialization } from './init';
+export {
+  initializeAuth,
+  isAuthInitialized,
+  resetAuthInitialization,
+} from "./init";
 
 // Types
 export type {
@@ -21,21 +25,21 @@ export type {
   UserInfoResponse,
   TokenVerifier,
   CachedToken,
-} from './types';
+} from "./types";
 
 // Helpers
 export {
   verifyIdToken,
   isAnonymousUser,
   getFirebaseAuth,
-} from './helpers/FirebaseHelper';
+} from "./helpers/FirebaseHelper";
 
 export {
   createCachedVerifier,
   type CachedVerifier,
   type CachedVerifierOptions,
-} from './helpers/TokenCache';
+} from "./helpers/TokenCache";
 
-export { isSiteAdmin } from './helpers/AdminHelper';
+export { isSiteAdmin } from "./helpers/AdminHelper";
 
-export { getUserInfo } from './helpers/UserInfoHelper';
+export { getUserInfo } from "./helpers/UserInfoHelper";

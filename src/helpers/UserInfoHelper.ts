@@ -6,9 +6,9 @@
  * {@link isSiteAdmin}.
  */
 
-import { getFirebaseAuth } from './FirebaseHelper';
-import { isSiteAdmin } from './AdminHelper';
-import type { UserInfoResponse } from '../types';
+import { getFirebaseAuth } from "./FirebaseHelper";
+import { isSiteAdmin } from "./AdminHelper";
+import type { UserInfoResponse } from "../types";
 
 /**
  * Retrieve full user information from Firebase Auth by UID.
@@ -54,8 +54,8 @@ export async function getUserInfo(
     };
   } catch (error: unknown) {
     // User not found in Firebase
-    if (error && typeof error === 'object' && 'code' in error) {
-      if ((error as { code: string }).code === 'auth/user-not-found') {
+    if (error && typeof error === "object" && "code" in error) {
+      if ((error as { code: string }).code === "auth/user-not-found") {
         return null;
       }
     }

@@ -7,9 +7,9 @@
  * any other function in this module is called.
  */
 
-import { initializeApp, cert, getApps, type App } from 'firebase-admin/app';
-import { getAuth, type Auth, type DecodedIdToken } from 'firebase-admin/auth';
-import type { FirebaseAdminConfig } from '../types';
+import { initializeApp, cert, getApps, type App } from "firebase-admin/app";
+import { getAuth, type Auth, type DecodedIdToken } from "firebase-admin/auth";
+import type { FirebaseAdminConfig } from "../types";
 
 let firebaseApp: App | null = null;
 let firebaseAuth: Auth | null = null;
@@ -46,7 +46,7 @@ export function initializeFirebaseAdmin(config: FirebaseAdminConfig): void {
       credential: cert({
         projectId: config.projectId,
         clientEmail: config.clientEmail,
-        privateKey: config.privateKey.replace(/\\n/g, '\n'),
+        privateKey: config.privateKey.replace(/\\n/g, "\n"),
       }),
     });
   }
@@ -69,7 +69,7 @@ export function initializeFirebaseAdmin(config: FirebaseAdminConfig): void {
 export function getFirebaseAuth(): Auth {
   if (!firebaseAuth) {
     throw new Error(
-      'Firebase Admin not initialized. Call initializeAuth() first.'
+      "Firebase Admin not initialized. Call initializeAuth() first."
     );
   }
   return firebaseAuth;
@@ -111,5 +111,5 @@ export async function verifyIdToken(token: string): Promise<DecodedIdToken> {
  * ```
  */
 export function isAnonymousUser(decodedToken: DecodedIdToken): boolean {
-  return decodedToken.firebase?.sign_in_provider === 'anonymous';
+  return decodedToken.firebase?.sign_in_provider === "anonymous";
 }

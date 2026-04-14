@@ -9,7 +9,7 @@
  * `initializeAuth`) before {@link isSiteAdmin} will return `true` for any email.
  */
 
-import { createAdminChecker } from '@sudobility/types';
+import { createAdminChecker } from "@sudobility/types";
 
 type AdminChecker = (email: string | null | undefined) => boolean;
 

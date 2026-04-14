@@ -2,10 +2,10 @@
  * @fileoverview Type definitions for auth_service
  */
 
-import type { DecodedIdToken } from 'firebase-admin/auth';
+import type { DecodedIdToken } from "firebase-admin/auth";
 
 // Re-export shared types from @sudobility/types
-export type { UserInfoResponse } from '@sudobility/types';
+export type { UserInfoResponse } from "@sudobility/types";
 
 /** Firebase Admin SDK configuration */
 export interface FirebaseAdminConfig {

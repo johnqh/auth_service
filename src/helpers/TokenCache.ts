@@ -7,9 +7,9 @@
  * via LRU (Least Recently Used) eviction.
  */
 
-import type { DecodedIdToken } from 'firebase-admin/auth';
-import type { CachedToken, TokenVerifier } from '../types';
-import { verifyIdToken as verifyWithFirebase } from './FirebaseHelper';
+import type { DecodedIdToken } from "firebase-admin/auth";
+import type { CachedToken, TokenVerifier } from "../types";
+import { verifyIdToken as verifyWithFirebase } from "./FirebaseHelper";
 
 /** Default cache TTL: 5 minutes */
 const DEFAULT_TTL_MS = 300000;
@@ -82,7 +82,7 @@ export function createCachedVerifier(
   let ttlMs: number;
   let maxCacheSize: number;
 
-  if (typeof ttlMsOrOptions === 'object' && ttlMsOrOptions !== null) {
+  if (typeof ttlMsOrOptions === "object" && ttlMsOrOptions !== null) {
     ttlMs = ttlMsOrOptions.ttlMs ?? DEFAULT_TTL_MS;
     maxCacheSize = ttlMsOrOptions.maxCacheSize ?? DEFAULT_MAX_CACHE_SIZE;
   } else {

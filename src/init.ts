@@ -2,9 +2,9 @@
  * @fileoverview auth_service initialization
  */
 
-import type { AuthServiceConfig } from './types';
-import { initializeFirebaseAdmin } from './helpers/FirebaseHelper';
-import { initializeSiteAdminChecker } from './helpers/AdminHelper';
+import type { AuthServiceConfig } from "./types";
+import { initializeFirebaseAdmin } from "./helpers/FirebaseHelper";
+import { initializeSiteAdminChecker } from "./helpers/AdminHelper";
 
 let initialized = false;
 
@@ -31,7 +31,7 @@ let initialized = false;
  */
 export function initializeAuth(config: AuthServiceConfig): void {
   if (initialized) {
-    console.warn('[auth_service] Already initialized');
+    console.warn("[auth_service] Already initialized");
     return;
   }
 
