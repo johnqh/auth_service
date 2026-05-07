@@ -23,3 +23,10 @@ export {
 } from "./AdminHelper";
 
 export { getUserInfo } from "./UserInfoHelper";
+
+export {
+  deleteUserAccount,
+  type AppleSignInConfig,
+  type DeleteUserAccountOptions,
+  type DeleteUserAccountResult,
+} from "./AccountDeletionHelper";

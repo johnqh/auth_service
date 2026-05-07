@@ -43,3 +43,10 @@ export {
 export { isSiteAdmin } from "./helpers/AdminHelper";
 
 export { getUserInfo } from "./helpers/UserInfoHelper";
+
+export {
+  deleteUserAccount,
+  type AppleSignInConfig,
+  type DeleteUserAccountOptions,
+  type DeleteUserAccountResult,
+} from "./helpers/AccountDeletionHelper";
