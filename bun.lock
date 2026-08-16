@@ -5,7 +5,7 @@
     "": {
       "name": "@sudobility/auth_service",
       "devDependencies": {
-        "@sudobility/types": "^1.9.64",
+        "@sudobility/types": "^1.9.65",
         "@types/bun": "latest",
         "@types/node": "^24.0.0",
         "@typescript-eslint/eslint-plugin": "^8.50.0",
@@ -18,7 +18,7 @@
         "vitest": "^4.0.4",
       },
       "peerDependencies": {
-        "@sudobility/types": "^1.9.64",
+        "@sudobility/types": "^1.9.65",
         "firebase-admin": "^13.0.0",
       },
     },
@@ -216,7 +216,7 @@
 
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
-    "@sudobility/types": ["@sudobility/types@1.9.64", "", {}, "sha512-fiOxOM1vNK2Vp5B324POcRhq6XOoeoHInP3GbvGPmn8MvsoAl0hgO2X4gJh2VZIybFZwIdE4SD0dO1vu/JgFSA=="],
+    "@sudobility/types": ["@sudobility/types@1.9.65", "", {}, "sha512-NSq2/naehtQO3s6uhCa9+zGLQZkPNYhlb9NUtjS704ppvc+UbtGoSAzNQGLORDbha2YGJORE3/xs2UARZQdroA=="],
 
     "@tootallnate/once": ["@tootallnate/once@2.0.0", "", {}, "sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A=="],
 
