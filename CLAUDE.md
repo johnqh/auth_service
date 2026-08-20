@@ -1,5 +1,10 @@
 # Auth Service
 
+> **Git policy — never auto-commit or auto-push.** Leave your work in the working tree.
+> Run `git commit`, `git push`, `gh pr create`, or `scripts/push_all.sh` **only when the user
+> explicitly asks in that turn**. Approval for an earlier change does not carry forward, and
+> finishing a task is not permission to commit it.
+
 Framework-agnostic Firebase authentication helpers.
 
 **npm**: `@sudobility/auth_service` (public)
@@ -232,3 +237,7 @@ bun test          # Run tests separately
 - **`firebase-admin` is a peer dependency** -- do not add it to `dependencies`.
 - **ESM-only output** -- consumers must use `"type": "module"` or ESM imports.
 - **Token cache cleanup** -- `createCachedVerifier()` starts an interval. Call `stop()` in tests to avoid dangling timers.
+
+## Git Workflow
+
+- Do not use feature branches for code changes. Always stay on the current branch.
