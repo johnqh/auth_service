@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/auth_service",
-  "version": "1.1.20",
+  "version": "1.1.21",
   "description": "Firebase authentication helpers (framework-agnostic)",
   "type": "module",
   "main": "./dist/index.js",
@@ -38,11 +38,11 @@
   "author": "Sudobility",
   "license": "BUSL-1.1",
   "peerDependencies": {
-    "@sudobility/types": "^1.9.66",
+    "@sudobility/types": "^1.9.67",
     "firebase-admin": "^13.0.0"
   },
   "devDependencies": {
-    "@sudobility/types": "^1.9.66",
+    "@sudobility/types": "^1.9.67",
     "@types/bun": "latest",
     "@types/node": "^24.0.0",
     "@typescript-eslint/eslint-plugin": "^8.50.0",
